@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>For You ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+  --pink:#ff2d6f;
+  --pink-soft:#ff6fa3;
+  --purple:#7c3aed;
+  --bg1:#fff0f6;
+  --bg2:#ffe3ef;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Poppins, sans-serif;
+  background:
+    radial-gradient(circle at 20% 20%, #ffffff 0%, transparent 40%),
+    linear-gradient(135deg,var(--bg1),var(--bg2));
+  padding:20px;
+}
+
+.container{
+  width:min(420px,100%);
+  text-align:center;
+}
+
+.title{
+  font-family:"Great Vibes", cursive;
+  font-size:50px;
+  color:#b10f3a;
+  margin-bottom:8px;
+}
+
+.subtitle{
+  margin-bottom:30px;
+  opacity:.8;
+}
+
+.card{
+  background:#ffffffcc;
+  backdrop-filter:blur(10px);
+  padding:30px 20px;
+  border-radius:24px;
+  box-shadow:0 20px 50px rgba(0,0,0,.12);
+}
+
+.btn{
+  width:100%;
+  height:56px;
+  border:none;
+  border-radius:999px;
+  font-size:16px;
+  font-weight:600;
+  cursor:pointer;
+  margin:10px 0;
+  transition:.25s;
+}
+
+/* Gift button */
+.btn-gift{
+  background:linear-gradient(135deg,var(--pink),var(--pink-soft));
+  color:white;
+  box-shadow:0 15px 35px rgba(255,45,111,.35);
+}
+
+/* Game button */
+.btn-game{
+  background:linear-gradient(135deg,#7c3aed,#c084fc);
+  color:white;
+  box-shadow:0 15px 35px rgba(124,58,237,.35);
+}
+
+/* Final button */
+.btn-final{
+  background:white;
+  color:var(--pink);
+  border:2px solid var(--pink-soft);
+}
+
+.btn:hover{
+  transform:scale(1.05);
+}
+
+.heart{
+  position:fixed;
+  width:12px;
+  height:12px;
+  background:var(--pink);
+  transform:rotate(45deg);
+  animation:floatUp linear infinite;
+  opacity:.25;
+}
+
+.heart:before,.heart:after{
+  content:"";
+  position:absolute;
+  width:12px;
+  height:12px;
+  background:inherit;
+  border-radius:50%;
+}
+
+.heart:before{left:-6px}
+.heart:after{top:-6px}
+
+@keyframes floatUp{
+  from{transform:translateY(100vh) rotate(45deg);opacity:0}
+  20%{opacity:.25}
+  to{transform:translateY(-20vh) rotate(45deg);opacity:0}
+}
+
+</style>
+</head>
+<body>
+
+<div class="heart" style="left:10%;animation-duration:12s;"></div>
+<div class="heart" style="left:30%;animation-duration:15s;"></div>
+<div class="heart" style="left:60%;animation-duration:10s;"></div>
+<div class="heart" style="left:85%;animation-duration:14s;"></div>
+
+<div class="container">
+
+<div class="title">შენთვის ❤️</div>
+<div class="subtitle">აირჩიე ნებისმიერი</div>
+
+<div class="card">
+
+<button class="btn btn-gift" onclick="openDrive()">
+💝 ჩვენი ისტორია
+</button>
+
+<button class="btn btn-game" onclick="openGame()">
+🎮 ითამაშე 
+</button>
+
+<button class="btn btn-final" onclick="openFinal()">
+❤️ ...
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function openDrive(){
+  window.location.href = "https://drive.google.com/file/d/1JTolK4N_XRkzAcSVLZD_zgOId9XdoNsq/view?usp=drivesdk";
+}
+
+function openGame(){
+  window.location.href = "game.html";
+}
+
+function openFinal(){
+  window.location.href = "endo.html";
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Valentine</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#fff0f5;
+      --bg2:#ffe3ee;
+      --card:#ffffffcc;
+      --text:#2a0f16;
+      --accent:#ff2d6f;
+      --accent2:#ff6fa3;
+      --shadow:0 18px 50px rgba(0,0,0,.12);
+      --radius:22px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, #ffffff 0%, transparent 55%),
+        radial-gradient(900px 700px at 90% 20%, #ffffff 0%, transparent 50%),
+        radial-gradient(900px 700px at 40% 110%, #ffd1e3 0%, transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px 18px calc(24px + env(safe-area-inset-bottom));
+    }
+
+    /* floating hearts */
+    .hearts{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      overflow:hidden;
+      opacity:.18;
+      filter: blur(.2px);
+    }
+    .heart{
+      position:absolute;
+      width:14px;height:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      transform:rotate(45deg);
+      border-radius:4px;
+      animation: floatUp linear infinite;
+    }
+    .heart:before,.heart:after{
+      content:"";
+      position:absolute;
+      width:14px;height:14px;
+      background:inherit;
+      border-radius:50%;
+    }
+    .heart:before{left:-7px; top:0}
+    .heart:after{top:-7px; left:0}
+
+    @keyframes floatUp{
+      from{transform:translateY(20vh) rotate(45deg); opacity:0}
+      10%{opacity:1}
+      to{transform:translateY(-120vh) rotate(45deg); opacity:0}
+    }
+
+    .wrap{
+      width:min(440px, 100%);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+      align-items:center;
+    }
+
+    .title{
+      font-family:"Great Vibes", cursive;
+      font-size:44px;
+      line-height:1;
+      margin:0 0 6px;
+      text-align:center;
+      color:#b10f3a;
+      text-shadow: 0 8px 30px rgba(177,15,58,.18);
+    }
+
+    .card{
+      width:100%;
+      background:var(--card);
+      backdrop-filter: blur(10px);
+      border:1px solid rgba(255,255,255,.7);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:14px;
+    }
+
+    .image-frame{
+      width:100%;
+      border-radius:18px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 14px 35px rgba(0,0,0,.10);
+    }
+
+    /* keeps the image nicely aligned on iPhone 15 */
+    .image-frame img{
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    .hint{
+      margin:10px 0 0;
+      font-size:13px;
+      opacity:.78;
+      text-align:center;
+    }
+
+    .btn{
+      width:100%;
+      height:54px;
+      border:none;
+      border-radius:999px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:15px;
+      letter-spacing:.2px;
+      color:white;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      box-shadow: 0 14px 30px rgba(255,45,111,.32);
+      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active{
+      transform: translateY(1px) scale(.99);
+      box-shadow: 0 10px 22px rgba(255,45,111,.26);
+      filter:saturate(1.05);
+    }
+
+    .btn .icon{
+      width:18px;height:18px;
+      display:inline-block;
+      background: currentColor;
+      -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 21s-7-4.35-9.33-8.09C.3 9.61 2.06 6 5.8 6c2.03 0 3.22 1.18 4.2 2.2C11 7.18 12.17 6 14.2 6 17.94 6 19.7 9.61 21.33 12.91 19 16.65 12 21 12 21z"/></svg>') center / contain no-repeat;
+              mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M12 21s-7-4.35-9.33-8.09C.3 9.61 2.06 6 5.8 6c2.03 0 3.22 1.18 4.2 2.2C11 7.18 12.17 6 14.2 6 17.94 6 19.7 9.61 21.33 12.91 19 16.65 12 21 12 21z"/></svg>') center / contain no-repeat;
+      opacity:.95;
+    }
+
+    .footer-space{height:2px}
+  </style>
+</head>
+
+<body>
+  <!-- decorative hearts -->
+  <div class="hearts" aria-hidden="true">
+    <div class="heart" style="left:8%;  animation-duration:9s;  animation-delay:-2s;"></div>
+    <div class="heart" style="left:22%; animation-duration:12s; animation-delay:-6s;"></div>
+    <div class="heart" style="left:38%; animation-duration:10s; animation-delay:-4s;"></div>
+    <div class="heart" style="left:56%; animation-duration:13s; animation-delay:-8s;"></div>
+    <div class="heart" style="left:70%; animation-duration:11s; animation-delay:-5s;"></div>
+    <div class="heart" style="left:86%; animation-duration:14s; animation-delay:-10s;"></div>
+  </div>
+
+  <main class="wrap">
+    <h1 class="title">For You</h1>
+
+    <section class="card">
+      <div class="image-frame">
+        <!-- Change this src to your actual file name -->
+        <img src="images/Red and Pink Gradient Valentine's Day Instagram Post.png" alt="Valentine collage" />
+      </div>
+
+      <p class="hint">Tap the button ❤️</p>
+
+      <button class="btn" id="goEnd" type="button">
+        <span class="icon" aria-hidden="true"></span>
+        Open my surprise
+      </button>
+      <div class="footer-space"></div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("goEnd").addEventListener("click", () => {
+      window.location.href = "end.html";
+    });
+  </script>
+</body>
+</html>

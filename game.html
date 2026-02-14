@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>Love Lock ❤️</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --pink:#ff2d6f;
+    --pink2:#ff6fa3;
+    --bg1:#fff0f6;
+    --bg2:#ffe3ef;
+    --ink:#2a0f16;
+    --card:#ffffffcc;
+    --shadow:0 22px 55px rgba(0,0,0,.12);
+    --radius:24px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:18px 14px calc(18px + env(safe-area-inset-bottom));
+    font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(circle at 20% 10%, #ffffff 0%, transparent 45%),
+      radial-gradient(circle at 90% 20%, #ffffff 0%, transparent 45%),
+      linear-gradient(135deg,var(--bg1),var(--bg2));
+  }
+
+  .wrap{width:min(460px,100%);}
+  .header{
+    text-align:center;
+    margin-bottom:12px;
+  }
+  .title{
+    font-family:"Great Vibes", cursive;
+    font-size:54px;
+    margin:0;
+    color:#b10f3a;
+    line-height:1;
+    text-shadow:0 10px 35px rgba(177,15,58,.18);
+  }
+  .sub{
+    margin:6px 0 0;
+    font-weight:700;
+    opacity:.75;
+    font-size:13px;
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid rgba(255,255,255,.75);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    backdrop-filter: blur(10px);
+    padding:14px;
+  }
+
+  .faces{
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    align-items:center;
+    margin-bottom:12px;
+  }
+  .avatar{
+    width:56px;height:56px;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid rgba(0,0,0,.06);
+    box-shadow:0 12px 30px rgba(0,0,0,.10);
+    background:#fff;
+  }
+  .avatar img{
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .plus{
+    font-size:18px;
+    font-weight:900;
+    opacity:.6;
+  }
+
+  .locks{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:10px;
+    margin:10px 0 14px;
+  }
+  .lock{
+    border-radius:18px;
+    padding:12px 10px;
+    text-align:center;
+    border:1px solid rgba(0,0,0,.06);
+    background:rgba(255,255,255,.85);
+    box-shadow:0 14px 35px rgba(0,0,0,.08);
+    position:relative;
+  }
+  .lock .icon{font-size:26px}
+  .lock .name{
+    margin-top:6px;
+    font-weight:800;
+    font-size:12px;
+    opacity:.85;
+  }
+  .lock .status{
+    margin-top:6px;
+    font-size:12px;
+    font-weight:800;
+    color:#b10f3a;
+  }
+  .doneBadge{
+    position:absolute;
+    top:8px; right:8px;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:#fff;
+    font-weight:900;
+    font-size:10px;
+    padding:4px 8px;
+    border-radius:999px;
+    display:none;
+  }
+  .lock.done .doneBadge{display:inline-block}
+
+  .panel{
+    border-radius:18px;
+    padding:14px;
+    border:1px solid rgba(0,0,0,.06);
+    background:rgba(255,255,255,.86);
+    box-shadow:0 14px 35px rgba(0,0,0,.08);
+  }
+
+  .tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:12px;
+  }
+  .tab{
+    flex:1;
+    height:44px;
+    border:none;
+    border-radius:999px;
+    font-weight:900;
+    cursor:pointer;
+    background:#fff;
+    border:1px solid rgba(0,0,0,.08);
+    color:#6b2137;
+  }
+  .tab.active{
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:#fff;
+    border-color:transparent;
+    box-shadow:0 14px 30px rgba(255,45,111,.22);
+  }
+
+  .section{display:none}
+  .section.active{display:block}
+
+  /* Challenge 1: taps */
+  .bigHeart{
+    width:140px;height:140px;
+    margin:10px auto 8px;
+    border-radius:999px;
+    display:grid;
+    place-items:center;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    box-shadow:0 18px 40px rgba(255,45,111,.30);
+    user-select:none;
+    -webkit-tap-highlight-color: transparent;
+    cursor:pointer;
+    transform: translateZ(0);
+  }
+  .bigHeart span{font-size:54px}
+  .meterRow{
+    display:flex;
+    justify-content:space-between;
+    font-weight:800;
+    font-size:13px;
+    opacity:.85;
+  }
+  .bar{
+    height:10px;
+    border-radius:999px;
+    background:rgba(0,0,0,.08);
+    overflow:hidden;
+    margin-top:10px;
+  }
+  .bar > div{
+    height:100%;
+    width:0%;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    border-radius:999px;
+    transition:width .15s ease;
+  }
+
+  /* Challenge 2: slider */
+  input[type="range"]{
+    width:100%;
+    margin-top:10px;
+    accent-color: var(--pink);
+  }
+  .sliderHint{
+    font-size:12.5px;
+    font-weight:700;
+    opacity:.75;
+    margin-top:8px;
+    text-align:center;
+  }
+
+  /* Challenge 3: pattern */
+  .patternBox{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    font-size:28px;
+    margin:8px 0 12px;
+  }
+  .pad{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap:10px;
+  }
+  .pad button{
+    height:58px;
+    border:none;
+    border-radius:18px;
+    background:#fff;
+    border:1px solid rgba(0,0,0,.08);
+    font-size:26px;
+    cursor:pointer;
+    box-shadow:0 12px 28px rgba(0,0,0,.07);
+  }
+  .pad button:active{transform:scale(.99)}
+  .msg{
+    margin-top:10px;
+    font-size:12.5px;
+    font-weight:800;
+    opacity:.75;
+    text-align:center;
+  }
+
+  .finish{
+    margin-top:12px;
+    display:flex;
+    gap:10px;
+  }
+  .finish button{
+    flex:1;
+    height:54px;
+    border:none;
+    border-radius:999px;
+    font-weight:900;
+    cursor:pointer;
+  }
+  .finish .reset{
+    background:#fff;
+    border:1px solid rgba(0,0,0,.10);
+    color:#6b2137;
+  }
+  .finish .next{
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    color:#fff;
+    box-shadow:0 14px 30px rgba(255,45,111,.22);
+    display:none;
+  }
+
+  /* Win overlay */
+  .overlay{
+    position:fixed;
+    inset:0;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:22px 16px calc(22px + env(safe-area-inset-bottom));
+    background:rgba(0,0,0,.55);
+    z-index:50;
+  }
+  .modal{
+    width:min(440px,100%);
+    background:rgba(255,255,255,.95);
+    border-radius:26px;
+    box-shadow:0 30px 80px rgba(0,0,0,.25);
+    padding:18px;
+    text-align:center;
+  }
+  .modal h2{
+    margin:8px 0 6px;
+    font-family:"Great Vibes", cursive;
+    font-size:56px;
+    color:#b10f3a;
+    line-height:1;
+  }
+  .modal p{
+    margin:0 0 14px;
+    font-weight:800;
+    opacity:.78;
+  }
+  .photo{
+    width:100%;
+    aspect-ratio: 4 / 5;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 18px 45px rgba(0,0,0,.18);
+    background:#fff;
+    border:1px solid rgba(0,0,0,.06);
+  }
+  .photo img{width:100%;height:100%;object-fit:cover;display:block}
+  .modal .btn{
+    margin-top:14px;
+    width:100%;
+    height:54px;
+    border:none;
+    border-radius:999px;
+    font-weight:900;
+    cursor:pointer;
+    color:#fff;
+    background:linear-gradient(135deg,var(--pink),var(--pink2));
+    box-shadow:0 14px 30px rgba(255,45,111,.22);
+  }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <div class="header">
+    <h1 class="title">საკეტი</h1>
+    <div class="sub">გახსენი სამივე სურპრიზისთვის</div>
+  </div>
+
+  <div class="card">
+    <div class="faces">
+      <div class="avatar"><img src="images/her.png" alt="Her"></div>
+      <div class="plus">+</div>
+      <div class="avatar"><img src="images/me.png" alt="You"></div>
+    </div>
+
+    <div class="locks">
+      <div class="lock" id="lock1">
+        <div class="doneBadge">გაიხსნა</div>
+        <div class="icon">❤️</div>
+        <div class="name">Heart Tap</div>
+        <div class="status" id="s1">დაკეტილია</div>
+      </div>
+      <div class="lock" id="lock2">
+        <div class="doneBadge">გაიხსნა</div>
+        <div class="icon">🔐</div>
+        <div class="name">Love Meter</div>
+        <div class="status" id="s2">დაკეტილია</div>
+      </div>
+      <div class="lock" id="lock3">
+        <div class="doneBadge">გაიხსნა</div>
+        <div class="icon">💌</div>
+        <div class="name">დაიმახსოვრე</div>
+        <div class="status" id="s3">დაკეტილია</div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="tabs">
+        <button class="tab active" data-tab="c1">❤️</button>
+        <button class="tab" data-tab="c2">🔐</button>
+        <button class="tab" data-tab="c3">💌</button>
+      </div>
+
+      <!-- Challenge 1 -->
+      <div class="section active" id="c1">
+        <div class="meterRow">
+          <div>Tap goal</div>
+          <div><span id="tapCount">0</span> / <span id="tapGoal">25</span></div>
+        </div>
+        <div class="bar"><div id="tapBar"></div></div>
+
+        <div class="bigHeart" id="heartBtn" aria-label="Tap the heart">
+          <span>💗</span>
+        </div>
+        <div class="msg" id="tapMsg">დააჭირე გულს 25-ჯერ</div>
+      </div>
+
+      <!-- Challenge 2 -->
+      <div class="section" id="c2">
+        <div class="meterRow">
+          <div>Fill the meter</div>
+          <div><span id="meterVal">0</span>%</div>
+        </div>
+        <div class="bar"><div id="meterBar"></div></div>
+
+        <input id="meter" type="range" min="0" max="100" value="0" />
+        <div class="sliderHint" id="meterMsg">გააცურე 100%-მდე</div>
+      </div>
+
+      <!-- Challenge 3 -->
+      <div class="section" id="c3">
+        <div class="msg" style="margin-top:0">დაიმახსოვრე და შეიყვანე:</div>
+        <div class="patternBox" id="patternShow"></div>
+        <div class="pad" aria-label="Pattern keypad">
+          <button data-sym="💗">💗</button>
+          <button data-sym="⭐">⭐</button>
+          <button data-sym="🌙">🌙</button>
+          <button data-sym="🌸">🌸</button>
+        </div>
+        <div class="msg" id="memMsg">Tap the 4 symbols in the right order ✨</div>
+      </div>
+
+      <div class="finish">
+        <button class="reset" id="resetBtn">Reset</button>
+        <button class="next" id="nextBtn">Continue ❤️</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Win overlay with your photo -->
+<div class="overlay" id="overlay" aria-hidden="true">
+  <div class="modal">
+    <h2>გილოცავვვ</h2>
+    <p>შენი პრიზი ვარ მე!</p>
+    <div class="photo">
+      <img src="images/me.png" alt="Your photo">
+    </div>
+    <button class="btn" id="goOn">Continue </button>
+  </div>
+</div>
+
+<script>
+  // ---- Tabs ----
+  const tabs = document.querySelectorAll(".tab");
+  const sections = document.querySelectorAll(".section");
+  tabs.forEach(t => t.addEventListener("click", () => {
+    tabs.forEach(x => x.classList.remove("active"));
+    t.classList.add("active");
+    const id = t.dataset.tab;
+    sections.forEach(s => s.classList.toggle("active", s.id === id));
+  }));
+
+  // ---- Locks state ----
+  const lockEls = [document.getElementById("lock1"), document.getElementById("lock2"), document.getElementById("lock3")];
+  const statusEls = [document.getElementById("s1"), document.getElementById("s2"), document.getElementById("s3")];
+  const unlocked = [false,false,false];
+
+  function setUnlocked(i){
+    unlocked[i] = true;
+    lockEls[i].classList.add("done");
+    statusEls[i].textContent = "Unlocked";
+    statusEls[i].style.color = "#0f7a3c";
+    checkWin();
+  }
+
+  function checkWin(){
+    const all = unlocked.every(Boolean);
+    const nextBtn = document.getElementById("nextBtn");
+    nextBtn.style.display = all ? "block" : "none";
+  }
+
+  // ---- Challenge 1: Heart Tap ----
+  const tapGoal = 25;
+  let taps = 0;
+  document.getElementById("tapGoal").textContent = tapGoal;
+
+  const tapCountEl = document.getElementById("tapCount");
+  const tapBar = document.getElementById("tapBar");
+  const tapMsg = document.getElementById("tapMsg");
+
+  const heartBtn = document.getElementById("heartBtn");
+  heartBtn.addEventListener("click", () => {
+    if(unlocked[0]) return;
+    taps++;
+    tapCountEl.textContent = taps;
+    tapBar.style.width = Math.min(100, (taps/tapGoal)*100) + "%";
+    heartBtn.style.transform = "scale(0.98)";
+    setTimeout(()=> heartBtn.style.transform = "", 90);
+
+    if(taps >= tapGoal){
+      tapMsg.textContent = "Unlocked! 💗";
+      setUnlocked(0);
+    }
+  });
+
+  // ---- Challenge 2: Love Meter ----
+  const meter = document.getElementById("meter");
+  const meterVal = document.getElementById("meterVal");
+  const meterBar = document.getElementById("meterBar");
+  const meterMsg = document.getElementById("meterMsg");
+
+  meter.addEventListener("input", () => {
+    if(unlocked[1]) return;
+    const v = Number(meter.value);
+    meterVal.textContent = v;
+    meterBar.style.width = v + "%";
+    if(v >= 100){
+      meterMsg.textContent = "Unlocked! 🔐";
+      setUnlocked(1);
+    }
+  });
+
+  // ---- Challenge 3: Memory Pattern ----
+  // Harder: pattern changes each reset and is shown briefly
+  const symbols = ["💗","⭐","🌙","🌸"];
+  let pattern = [];
+  let entered = [];
+
+  const patternShow = document.getElementById("patternShow");
+  const memMsg = document.getElementById("memMsg");
+
+  function newPattern(){
+    pattern = Array.from({length:4}, () => symbols[Math.floor(Math.random()*symbols.length)]);
+    entered = [];
+    // show for 1.2 seconds then hide
+    patternShow.textContent = pattern.join(" ");
+    setTimeout(()=> {
+      if(!unlocked[2]) patternShow.textContent = "❓ ❓ ❓ ❓";
+    }, 1200);
+  }
+  newPattern();
+
+  document.querySelectorAll(".pad button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      if(unlocked[2]) return;
+      const sym = btn.dataset.sym;
+      entered.push(sym);
+
+      // show progress dots
+      memMsg.textContent = "Progress: " + "•".repeat(entered.length);
+
+      // check as she types (harder)
+      for(let i=0;i<entered.length;i++){
+        if(entered[i] !== pattern[i]){
+          memMsg.textContent = "Oops! Try again ✨";
+          entered = [];
+          // show again briefly
+          patternShow.textContent = pattern.join(" ");
+          setTimeout(()=> {
+            if(!unlocked[2]) patternShow.textContent = "❓ ❓ ❓ ❓";
+          }, 900);
+          return;
+        }
+      }
+
+      if(entered.length === pattern.length){
+        memMsg.textContent = "Unlocked! 💌";
+        patternShow.textContent = pattern.join(" ");
+        setUnlocked(2);
+      }
+    });
+  });
+
+  // ---- Reset ----
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    // reset challenges
+    taps = 0;
+    tapCountEl.textContent = "0";
+    tapBar.style.width = "0%";
+    tapMsg.textContent = "Tap the heart 25 times ✨";
+    meter.value = 0;
+    meterVal.textContent = "0";
+    meterBar.style.width = "0%";
+    meterMsg.textContent = "Slide to 100% ❤️";
+    newPattern();
+
+    // reset locks
+    for(let i=0;i<3;i++){
+      unlocked[i] = false;
+      lockEls[i].classList.remove("done");
+      statusEls[i].textContent = "Locked";
+      statusEls[i].style.color = "#b10f3a";
+    }
+    document.getElementById("nextBtn").style.display = "none";
+  });
+
+  // ---- Win flow ----
+  const overlay = document.getElementById("overlay");
+
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    overlay.style.display = "flex";
+    overlay.setAttribute("aria-hidden","false");
+  });
+
+  document.getElementById("goOn").addEventListener("click", () => {
+    window.location.href = "endo.html";
+  });
+</script>
+</body>
+</html>
